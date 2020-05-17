@@ -1,7 +1,7 @@
 from tkinter import *
 from tkinter import ttk
 import random
-
+from bubble_sort import bubble_sort
 # Main Window
 root = Tk()
 root.title("Sorting Algorithm Visualizer")
@@ -14,7 +14,7 @@ data = []
 
 
 
-def draw_data(data):
+def draw_data(data, color_array):
     canvas.delete('all')
     canvas_height = 380
     canvas_width = 600
@@ -28,8 +28,10 @@ def draw_data(data):
         x1 = (i+1) * x_width + offset
         y1 = canvas_height
 
-        canvas.create_rectangle(x0,y0,x1,y1, fill='red')
+        canvas.create_rectangle(x0,y0,x1,y1, fill=color_array[i])
         canvas.create_text((x0+x1)//2,y0,anchor=SW, text=str(data[i]))
+        
+    root.update_idletasks()
 
 def generate():
     global data
@@ -37,14 +39,16 @@ def generate():
     min_val = int(min_entry.get())
     max_val = int(max_entry.get())
     size = int(size_entry.get())
+    
     for _ in range(size):
         data.append(random.randrange(min_val, max_val+1))
-    draw_data(data)
+    draw_data(data, ['red' for i in range(len(data))])
     print("Algorithm "+ selected_algorithm.get())
 
 def start():
     global data
-    
+    time_tick = int(speed_scale.get())
+    bubble_sort(data, draw_data, time_tick)
     print("Start")
     
 
