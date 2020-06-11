@@ -2,6 +2,7 @@ from tkinter import *
 from tkinter import ttk
 import random
 from bubble_sort import bubble_sort
+
 # Main Window
 root = Tk()
 root.title("Sorting Algorithm Visualizer")
